@@ -1,0 +1,818 @@
+openapi: 3.0.4
+info:
+  title: Jolpica F1
+  description: |-
+    This document describes the part of the Jolpica F1 API that my app, Formula Facts will use.
+  termsOfService: https://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: https://github.com/jolpica/jolpica-f1?tab=Apache-2.0-1-ov-file#readme
+  version: 1.0.0
+externalDocs:
+  description: Jolpica F1 Github Repository
+  url: https://github.com/jolpica/jolpica-f1
+servers:
+  - url: http://api.jolpi.ca/ergast/f1/
+tags:
+  - name: Seasons
+  - name: Standings
+    description: Drivers' and constructors' standings
+  - name: Races
+    description: Infos about the races and their sessions' results
+    externalDocs:
+      description: Races documentation
+      url: https://github.com/jolpica/jolpica-f1/blob/main/docs/endpoints/races.md
+  - name: Drivers
+    description: Everything about F1 drivers
+    externalDocs:
+      description: Driver documentation
+      url: https://github.com/jolpica/jolpica-f1/blob/main/docs/endpoints/drivers.md
+  - name: Constructors
+    description: Infos about F1 teams
+    externalDocs:
+      description: Constructor documentation
+      url: https://github.com/jolpica/jolpica-f1/blob/main/docs/endpoints/constructors.md
+paths:
+  /seasons/:
+    get:
+      tags:
+        - Seasons
+      description: "Get all years when there was a season"
+      parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SeasonResponse"
+  /{year}/driverstandings/:
+    get:
+      tags:
+        - Standings
+      description: "The Drivers' Championship result in the given year. Year can be current to get the current season or can be a number"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/DriverStandings"
+  /{year}/constructorstandings/:
+    get:
+      tags:
+        - Standings
+      description: "The Constructors' Championship result in the given year. Year can be current to get the current season or can be a number"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/ConstructorStandings"
+  /{year}/races/:
+    get:
+      tags:
+        - Races
+      description: "Races in a given year. It can be current for the current drivers"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam' 
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RaceResponse"
+  /{year}/{round}/results/:
+    get:
+      tags:
+        - Races
+      description: "Result of a specified race of a specified season"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+        - $ref: '#/components/parameters/roundParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+  /{year}/{round}/qualifying/:
+    get:
+      tags:
+        - Races
+      description: "Result of a specified qualifying of a specified season"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+        - $ref: '#/components/parameters/roundParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+  /{year}/{round}/sprint/:
+    get:
+      tags:
+        - Races
+      description: "Result of a specified sprint race of a specified season"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+        - $ref: '#/components/parameters/roundParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+  /{year}/drivers/:
+    get:
+      tags:
+        - Drivers
+      description: "Drivers in a given year. It can be current for the current drivers"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam' 
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DriversResponse"
+  /drivers/{driver}/seasons/:
+    get:
+      tags:
+        - Drivers
+        - Seasons
+      description: "All seasons of a driver that he/she raced in"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/driverParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SeasonResponse"
+  /{year}/drivers/{driver}/driverstandings/:
+    get:
+      tags:
+        - Drivers
+        - Standings
+      description: "Placement of a driver in the Drivers' Championship in a given year"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/driverParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/DriverStandings"
+  /{year}/{round}/drivers/{driver}/results/:
+    get:
+      tags:
+        - Races
+        - Drivers
+      description: "Result of a driver in a specified race of a specified season"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+        - $ref: '#/components/parameters/roundParam'
+        - $ref: '#/components/parameters/driverParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+  /{year}/{round}/drivers/{driver}/qualifying/:
+    get:
+      tags:
+        - Races
+        - Drivers
+      description: "Result of a driver in a specified qualifying of a specified season"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+        - $ref: '#/components/parameters/roundParam'
+        - $ref: '#/components/parameters/driverParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+  /{year}/{round}/drivers/{driver}/sprint/:
+    get:
+      tags:
+        - Races
+        - Drivers
+      description: "Result of a driver in a specified sprint race of a specified season"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+        - $ref: '#/components/parameters/roundParam'
+        - $ref: '#/components/parameters/driverParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+  /{year}/constructors/:
+    get:
+      tags:
+        - Constructors
+      description: "Constructors in a given year. It can be current for the current constructors"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam' 
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConstructorsResponse"
+  /constructors/{constructor}/seasons/:
+    get:
+      tags:
+        - Constructors
+        - Seasons
+      description: "All seasons of a constructor that it raced in"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/constructorParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SeasonResponse"
+  /{year}/constructors/{constructor}/constructorstandings/:
+    get:
+      tags:
+        - Constructors
+        - Standings
+      description: "Placement of a constructor in the Constructors' Championship in a given year"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/constructorParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/ConstructorStandings"
+  /{year}/{round}/constructors/{constructor}/results/:
+    get:
+      tags:
+        - Races
+        - Constructors
+      description: "Result of a constructor in a specified race of a specified season"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+        - $ref: '#/components/parameters/roundParam'
+        - $ref: '#/components/parameters/constructorParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+  /{year}/{round}/constructors/{constructor}/qualifying/:
+    get:
+      tags:
+        - Races
+        - Constructors
+      description: "Result of a constructor in a specified qualifying of a specified season"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+        - $ref: '#/components/parameters/roundParam'
+        - $ref: '#/components/parameters/constructorParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+  /{year}/{round}/constructors/{constructor}/sprint/:
+    get:
+      tags:
+        - Races
+        - Constructors
+      description: "Result of a constructor in a specified sprint race of a specified season"
+      parameters:
+        - $ref: '#/components/parameters/yearParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'  
+        - $ref: '#/components/parameters/roundParam'
+        - $ref: '#/components/parameters/constructorParam'
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+components:
+  schemas:
+    Circuit:
+      type: object
+      properties:
+        circuitId:
+          type: string      
+        round:
+          type: string
+        url:
+          type: string          
+        circuitName:
+          type: string
+        Location:
+          type: object
+          properties:
+            lat: 
+              type: string
+            long:
+              type: string
+            locality:
+              type: string
+            country:
+              type: string
+    Constructor:
+      type: object
+      properties:
+        constructorId:
+          type: string
+          nullable: true
+        url:
+          type: string
+          nullable: true
+        name:
+          type: string
+        nationality:
+          type: string
+          nullable: true
+    Driver:
+      type: object
+      properties:
+        driverId:
+          type: string
+        permanentNumber: 
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        url:
+          type: string  
+          nullable: true
+        givenName:
+          type: string
+        familyName:
+          type: string
+        dateOfBirth: 
+          type: string
+          nullable: true
+        nationality:
+          type: string
+          nullable: true
+    Race:
+      type: object
+      properties:
+        season:
+          type: string
+        round:
+          type: string
+        url:
+          type: string
+          nullable: true
+        raceName:
+          type: string
+        Circuit:
+          $ref:  "#/components/schemas/Circuit"
+        date: 
+          type: string
+        time: 
+          type: string
+          nullable: true
+        Results:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/RaceResult'
+        QualifyingResults:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QualifyingResult"
+        SprintResults:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/RaceResult'
+        FirstPractice:
+          allOf:
+            - $ref: "#/components/schemas/StartTime"
+          nullable: true
+        SecondPractice:
+          allOf:
+            - $ref: "#/components/schemas/StartTime"
+          nullable: true        
+        ThirdPractice:
+          allOf:
+            - $ref: "#/components/schemas/StartTime"
+          nullable: true
+        Qualifying:
+          allOf:
+            - $ref: "#/components/schemas/StartTime"
+          nullable: true
+        SprintQualifying:
+          allOf:
+            - $ref: "#/components/schemas/StartTime"
+          nullable: true
+        Sprint:
+          allOf:
+            - $ref: "#/components/schemas/StartTime"
+          nullable: true
+        SprintShootout:
+          allOf:
+            - $ref: "#/components/schemas/StartTime"
+          nullable: true
+    RaceResult:
+      type: object
+      properties:
+        number:
+          type: string
+        position:
+          type: string
+        positionText:
+          type: string                        
+        points:
+          type: string 
+        Driver:
+          allOf:
+            - $ref:  "#/components/schemas/Driver"
+        Constructor:
+          allOf:
+            - $ref:  "#/components/schemas/Constructor"
+          nullable: true
+        grid:
+          type: string
+          nullable: true
+        laps:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+    QualifyingResult:
+      type: object
+      properties:
+        number:
+          type: string
+        position:
+          type: string
+          nullable: true
+        Driver:
+          $ref:  "#/components/schemas/Driver"
+        Constructor:
+          allOf:
+            - $ref:  "#/components/schemas/Constructor"
+          nullable: true
+        Q1:
+          type: string
+          nullable: true
+        Q2:
+          type: string
+          nullable: true
+        Q3:
+          type: string
+          nullable: true
+    StartTime:
+      type: object
+      properties:
+        date:
+          type: string
+        time:
+          type: string
+          nullable: true
+    DriverStandings:
+      type: object
+      properties:
+        MRData:
+          type: object
+          properties:
+            xmlns:
+              type: string
+            series:
+              type: string
+            url:
+              type: string
+            limit: 
+              type: string
+            offset:
+              type: string
+            total:
+              type: string
+            StandingsTable:
+              type: object
+              properties:
+                season:
+                  type: string
+                StandingsLists:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      season:
+                        type: string
+                      round:
+                        type: string
+                      DriverStandings:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            position:
+                              type: string
+                            positionText:
+                              type: string
+                            points:
+                              type: string
+                            wins:
+                              type: string
+                            Driver:
+                              $ref: '#/components/schemas/Driver'
+                            Constructors:
+                              type: array
+                              items:
+                                $ref: '#/components/schemas/Constructor'
+    ConstructorStandings:
+      type: object
+      properties:
+        MRData:
+          type: object
+          properties:
+            xmlns:
+              type: string
+            series:
+              type: string
+            url:
+              type: string
+            limit: 
+              type: string
+            offset:
+              type: string
+            total:
+              type: string
+            StandingsTable:
+              type: object
+              properties:
+                season:
+                  type: string
+                StandingsLists:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      season:
+                        type: string
+                      round:
+                        type: string
+                      ConstructorStandings:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            position:
+                              type: string
+                            positionText:
+                              type: string
+                            points:
+                              type: string
+                            wins:
+                              type: string
+                            Constructor:
+                              items:
+                                $ref: '#/components/schemas/Constructor'
+    Season:
+      type: object
+      properties:
+        season:
+          type: string
+        url:
+          type: string
+    SeasonResponse:
+      type: object
+      properties:
+        MRData:
+          type: object
+          properties:
+            xmlns:
+              type: string
+            series:
+              type: string
+            url:
+              type: string
+            limit: 
+              type: string
+            offset:
+              type: string
+            total:
+              type: string
+            SeasonTable:
+              type: object
+              properties:
+                season:
+                  type: string
+                Seasons:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Season'
+    DriversResponse:
+      type: object
+      properties:
+        MRData:
+          type: object
+          properties:
+            xmlns:
+              type: string
+            series:
+              type: string
+            url:
+              type: string
+            limit:
+              type: string
+            offset:
+              type: string
+            total:
+              type: string
+            DriverTable:
+              type: object
+              properties:
+                season:
+                  type: string
+                Drivers:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Driver'
+    ConstructorsResponse:
+      type: object
+      properties:
+        MRData:
+          type: object
+          properties:
+            xmlns:
+              type: string
+            series:
+              type: string
+            url:
+              type: string
+            limit:
+              type: string
+            offset:
+              type: string
+            total:
+              type: string
+            ConstructorTable:
+              type: object
+              properties:
+                season:
+                  type: string
+                Constructors:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Constructor'
+    RaceResponse:
+      type: object
+      properties:
+        MRData:
+          type: object
+          properties:
+            xmlns:
+              type: string
+            series:
+              type: string
+            url:
+              type: string
+            limit:
+              type: string
+            offset:
+              type: string
+            total:
+              type: string
+            RaceTable:
+              type: object
+              properties:
+                season:
+                  type: string
+                  nullable: true
+                round:
+                  type: string
+                  nullable: true
+                Races:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Race'
+  parameters:
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: The number of items to skip before starting to collect the result set.
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+      description: The numbers of items to return.
+    yearParam:
+        name: year
+        in: path
+        description: "Year in question"
+        required: true
+        schema:  
+          type: string
+          example: "current"
+    roundParam:
+      name: round
+      in: path
+      description: "Round in question"
+      required: true
+      schema:  
+        type: string
+        example: 1
+    driverParam:
+      name: driver
+      in: path
+      description: "ID of the driver"
+      required: true
+      schema:
+        type: string
+        example: "alonso"
+    constructorParam:
+      name: constructor
+      in: path
+      description: "ID of the constructor"
+      required: true
+      schema:
+        type: string
+        example: "ferrari"

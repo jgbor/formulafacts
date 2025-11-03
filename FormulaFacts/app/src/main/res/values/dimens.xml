@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="page_padding">16dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="list_padding">4dp</dimen>
+    <dimen name="rounded_shape">8dp</dimen>
+    <dimen name="pager_padding">4dp</dimen>
+    <dimen name="switch_padding">4dp</dimen>
+    <dimen name="drawer_divider_thickness">2dp</dimen>
+    <dimen name="drawer_label_padding">6dp</dimen>
+    <dimen name="nav_drawer_item_height">48dp</dimen>
+    <dimen name="sessions_spacing">24dp</dimen>
+    <dimen name="card_divider_thickness">2dp</dimen>
+    <dimen name="minimum_card_height">64dp</dimen>
+    <dimen name="race_spacing">16dp</dimen>
+</resources>

@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Formula Facts</string>
+    <string name="next_gp">Next Grand Prix</string>
+    <string name="previous_gp">Previous Grand Prix</string>
+    <string name="current_season">Current Season</string>
+    <string name="no_connection">No connection, data can be outdated</string>
+    <string name="no_data_currently">No data found at this time</string>
+    <string name="drivers">Drivers</string>
+    <string name="constructors">Constructors</string>
+    <string name="tap">"Tap "</string>
+    <string name="here">here</string>
+    <string name="to_refresh">" to refresh"</string>
+    <string name="races">Races</string>
+    <string name="qualifying">Qualifying</string>
+    <string name="practice">Practices</string>
+    <string name="notification_channel_name">Reminder</string>
+    <string name="notification_message">%1$s starts in 10 minutes</string>
+    <string name="race">Race</string>
+    <string name="sprint_race">Sprint race</string>
+    <string name="fp1">FP1</string>
+    <string name="fp2">FP2</string>
+    <string name="fp3">FP3</string>
+    <string name="sprint_qualifying">Sprint qualifying</string>
+    <string name="teams">Teams</string>
+    <string name="seasons">Seasons</string>
+    <string name="standings">Standings</string>
+    <string name="current_drivers">Current drivers</string>
+    <string name="current_teams">Current teams</string>
+    <string name="grand_prix">Grand Prix</string>
+    <string name="q3_time">Q3: %1$s</string>
+    <string name="q2_time">Q2: %1$s</string>
+    <string name="q1_time">Q1: %1$s</string>
+    <string name="no_time">No time</string>
+    <string name="circuit_name">Circuit: %1$s</string>
+    <string name="round_number">Round %1$d</string>
+    <string name="date">"Date: %1$s"</string>
+    <string name="winner">1st: %1$s</string>
+    <string name="city">City: %1$s</string>
+    <string name="nationality">Nationality: %1$s</string>
+    <string name="born">Born: %1$s</string>
+    <string name="fix_number">Number: %1$d</string>
+    <string name="driver_code">Driver code: %1$s</string>
+    <string name="result">Result: %1$s</string>
+    <string name="first_season">First season: %1$d</string>
+    <string name="team">Team: %1$s</string>
+    <string name="driver_pos">%1$s: %2$s</string>
+    <plurals name="season_result">
+        <item quantity="one">Placement: %1$s, %2$s point</item>
+        <item quantity="other">Placement: %1$s, %2$s points</item>
+    </plurals>
+    <plurals name="points">
+        <item quantity="one">%1$s point</item>
+        <item quantity="other">%1$s points</item>
+    </plurals>
+</resources>
